@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        a:link, a:visited {
+          background-color: #f44336;
+          color: white;
+          padding: 14px 25px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+
+        a:hover, a:active {
+          background-color: red;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body class="w3-light-grey">
+
+
+<h2  class="w3-selection w3-light-grey w3-padding">Голосование</h2>
+
+
+<form action="/vote" method="post"  class="w3-selection w3-light-grey w3-padding">
+    <h4>Выберите лучшего исполнителя</h4>
+    <label>Eminem
+        <input type="radio" name="singer" value="Eminem"  class="w3-input w3-animate-input w3-border w3-round-large" style="width: 30%">
+    </label>
+    <br>
+    <label>
+        <input type="radio" name="singer" value="Eminem2" required class="w3-input w3-animate-input w3-border w3-round-large" style="width: 30%">
+    </label>Eminem2
+    <br>
+        <input type="radio" name="singer" value="Eminem3" required class="w3-input w3-animate-input w3-border w3-round-large" style="width: 30%">Eminem3
+    <br>
+        <input type="radio" name="singer" value="Eminem4" required class="w3-input w3-animate-input w3-border w3-round-large" style="width: 10%">Eminem4
+        <br>
+
+
+    <p><b>Выберите ваши любимые жанры</b></p>
+    <input type="checkbox" name="janre" value="rock">rock1
+    <input type="checkbox" name="janre" value="rock2">rock2
+    <input type="checkbox" name="janre" value="rock3">rock3
+    <input type="checkbox" name="janre" value="rock4">rock4
+    <input type="checkbox" name="janre" value="rock5">rock5
+    <input type="checkbox" name="janre" value="rock6">rock6
+    <input type="checkbox" name="janre" value="rock7">rock7
+    <input type="checkbox" name="janre" value="rock8">rock8
+    <input type="checkbox" name="janre" value="rock9">rock9
+    <input type="checkbox" name="janre" value="rock10">rock10
+    <br>
+    <h4></h4>
+    <label for="infoID"><h4>Введите краткую информацию о себе</h4>`
+        <input type="text" name="info" id="infoID" size="80" spellcheck="true" required>
+    </label>
+    <br><br>
+
+
+    <button type="submit" class="w3-btn w3-round-large">tttt</button>
+    <a href="default.asp" target="_blank">This is a link</a>
+
+</form>
+
+<div style="color: #FF0000"  >
+    <span>как дела</span>
+</div>
+</body>
+</html>
