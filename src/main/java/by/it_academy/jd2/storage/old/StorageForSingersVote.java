@@ -1,11 +1,11 @@
-package by.it_academy.jd2.storage;
+package by.it_academy.jd2.storage.old;
 
 import by.it_academy.jd2.storage.api.IStorageCount;
 import by.it_academy.jd2.entity.ESingers;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Deprecated(forRemoval = true)
 public class StorageForSingersVote implements IStorageCount<ESingers> {
 
     private final Map<ESingers, Integer> mapSingers = new HashMap<>();

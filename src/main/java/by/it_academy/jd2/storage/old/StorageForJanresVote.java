@@ -1,11 +1,11 @@
-package by.it_academy.jd2.storage;
+package by.it_academy.jd2.storage.old;
 
 import by.it_academy.jd2.storage.api.IStorageCount;
 import by.it_academy.jd2.entity.EJanres;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Deprecated(forRemoval = true)
 public class StorageForJanresVote implements IStorageCount<EJanres> {
     private static final StorageForJanresVote INSTANCE = new StorageForJanresVote();
 

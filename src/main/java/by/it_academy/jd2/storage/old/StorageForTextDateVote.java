@@ -1,11 +1,11 @@
-package by.it_academy.jd2.storage;
+package by.it_academy.jd2.storage.old;
 
 import by.it_academy.jd2.entity.TextAndTimeVote;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+@Deprecated(forRemoval = true)
 public class StorageForTextDateVote {
     private static final StorageForTextDateVote INSTANCE = new StorageForTextDateVote();
     private final List<TextAndTimeVote> listTextTime = new ArrayList<>();
