@@ -9,6 +9,8 @@ import by.it_academy.jd2.service.api.IServiceGetData;
 import by.it_academy.jd2.storage.StorageForJanresVote;
 import by.it_academy.jd2.storage.StorageForSingersVote;
 import by.it_academy.jd2.storage.StorageForTextDateVote;
+import by.it_academy.jd2.storage.StorageVote;
+import by.it_academy.jd2.storage.api.IVoteStorage;
 import by.it_academy.jd2.util.SortUtil;
 
 import java.time.LocalDateTime;
@@ -20,18 +22,19 @@ import java.util.Map;
 public class ServiceGetData implements IServiceGetData {
     private static final IServiceGetData INSTANCE = new ServiceGetData();
 
-    private final StorageForSingersVote storageForSingersVote = StorageForSingersVote.getInstance();
-    private final StorageForJanresVote storageForJanresVote = StorageForJanresVote.getInstance();
-    private final StorageForTextDateVote storageForTextDateVote = StorageForTextDateVote.getInstance();
+//    private final StorageForSingersVote storageForSingersVote = StorageForSingersVote.getInstance();
+//    private final StorageForJanresVote storageForJanresVote = StorageForJanresVote.getInstance();
+//    private final StorageForTextDateVote storageForTextDateVote = StorageForTextDateVote.getInstance();
+    private final IVoteStorage storageVote = StorageVote.getInstance();
 
-    private final String FORMAT_DATE = "HH:mm:ss dd.MM.yyyy";
+    private static final String FORMAT_DATE = "HH:mm:ss dd.MM.yyyy";
 
     private ServiceGetData(){}
 
     public SortedDateDTO getData() {
-        Map<ESingers, Integer> storageSingers = storageForSingersVote.getStorage();
-        Map<EJanres, Integer> storageJanres = storageForJanresVote.getStorage();
-        List<TextAndTimeVote> listTextTime = storageForTextDateVote.getListTextTime();
+        Map<ESingers, Integer> storageSingers = storageVote.getMapSingers();
+        Map<EJanres, Integer> storageJanres = storageVote.getMapJanres();
+        List<TextAndTimeVote> listTextTime = storageVote.getListTextTime();
 
         List<Map.Entry<ESingers, Integer>> sortSingers = SortUtil.sortSingers(storageSingers);
         List<Map.Entry<EJanres, Integer>> sortJanres = SortUtil.sortJanres(storageJanres);
