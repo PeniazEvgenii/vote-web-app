@@ -26,7 +26,7 @@ public class FormVoteValidate implements IValidate<InfoFromUserDTO> {
             validationResult.addError(new Err("janres_incorrect", "You need to choose 3 or more janres"));
         }
 
-        if(infoFromUserDTO.getInfo().isEmpty()) {
+        if(infoFromUserDTO.getInfo().isBlank()) {
             validationResult.addError(new Err("info_incorrect", "Field with information is empty"));
         }
 

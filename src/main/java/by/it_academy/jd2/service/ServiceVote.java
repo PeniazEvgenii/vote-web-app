@@ -18,15 +18,9 @@ public class ServiceVote implements IServiceVote {
     private static final IServiceVote INSTANCE = new ServiceVote();
 
     private final FormVoteValidate formVoteValidate = FormVoteValidate.getInstance();
-
-//    private final IStorageCount<ESingers> storageForSingersVote = StorageForSingersVote.getInstance();
-//    private final IStorageCount<EJanres> storageForJanresVote = StorageForJanresVote.getInstance();
-//    private final StorageForTextDateVote storageForTextDateVote = StorageForTextDateVote.getInstance();
-
-    private final IVoteStorage storageVote = StorageVote.getInstance();       //необработанные данные хранит вместе если надо
+    private final IVoteStorage storageVote = StorageVote.getInstance();
 
     private ServiceVote(){}
-
 
     public void create(InfoFromUserDTO infoFromUserDto) {
         ValidationResult validationResult = formVoteValidate.valid(infoFromUserDto);
@@ -34,27 +28,9 @@ public class ServiceVote implements IServiceVote {
             throw new ValidFormException(validationResult.getErrors());
         }
 
-//        saveResultSingers(infoFromUserDto);
-//        saveResultJanres(infoFromUserDto);
-//        saveResultTextDate(infoFromUserDto);
-
         storageVote.saveVote(infoFromUserDto);  //Моя новая хранилка под все
 
     }
-
-//    private void saveResultSingers(InfoFromUserDTO infoFromUserDto) {
-//        String singer = infoFromUserDto.getSinger();
-//        storageForSingersVote.addElement(singer);
-//    }
-//
-//    private void saveResultJanres(InfoFromUserDTO infoFromUserDto) {
-//        String[] janres = infoFromUserDto.getJanres();
-//            storageForJanresVote.addElement(janres);
-//    }
-//
-//    private void saveResultTextDate(InfoFromUserDTO infoFromUserDto) {
-//        storageForTextDateVote.addTextTime(infoFromUserDto.getInfo(), infoFromUserDto.getDateTime());
-//    }
 
     public static IServiceVote getInstance() {
         return INSTANCE;
