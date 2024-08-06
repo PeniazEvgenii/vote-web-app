@@ -23,6 +23,7 @@ public class ResultVoteServlet extends HttpServlet {
     public static final String ATTRIBUTE_JANRE_SORT = "janresort";
     public static final String ATTRIBUTE_SINGER_SORT = "singersort";
     public static final String ATTRIBUTE_TEXT_SORT = "textsort";
+    public static final String JSP_PAGE_WITH_RESULT = "resultVote";
 
     IServiceGetData serviceGetData = ServiceGetData.getInstance();
 
@@ -36,7 +37,7 @@ public class ResultVoteServlet extends HttpServlet {
         req.setAttribute(ATTRIBUTE_JANRE_SORT, sortJanres);
         req.setAttribute(ATTRIBUTE_TEXT_SORT, textAndTimeVotes);
 
-        req.getRequestDispatcher(JspUtil.getPath("resultVote")).forward(req, resp);
+        req.getRequestDispatcher(JspUtil.getPath(JSP_PAGE_WITH_RESULT)).forward(req, resp);
 
     }
 }

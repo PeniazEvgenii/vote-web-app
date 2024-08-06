@@ -25,10 +25,10 @@ public class FormForVoteServlet extends HttpServlet {
     public static final String PARAMETR_JANRE = "janre";
     public static final String PARAMETR_SINGER = "singer";
     public static final String PARAMETR_INFO_ABOUT_MYSESLF = "info";
-
     public static final String ATTRIBUTE_REQUEST_JANRES = "janres";
     public static final String ATTRIBUTE_REQUEST_SINGERS = "singers";
     public static final String ATTRIBUTE_REQUEST_VOTE_ERRORS = "voteErrors";
+    public static final String JSP_PAGE_WITH_FORM = "vote";
 
     private final IServiceVote serviceVote = ServiceVote.getInstance();
 
@@ -38,7 +38,7 @@ public class FormForVoteServlet extends HttpServlet {
 
         req.setAttribute(ATTRIBUTE_REQUEST_JANRES, EJanres.values());
         req.setAttribute(ATTRIBUTE_REQUEST_SINGERS, ESingers.values());
-        req.getRequestDispatcher(JspUtil.getPath("vote")).forward(req, resp);
+        req.getRequestDispatcher(JspUtil.getPath(JSP_PAGE_WITH_FORM)).forward(req, resp);
     }
 
     @Override
