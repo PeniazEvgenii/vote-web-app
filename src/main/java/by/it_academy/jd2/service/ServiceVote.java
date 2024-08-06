@@ -29,7 +29,7 @@ public class ServiceVote implements IServiceVote {
             throw new ValidFormException(validationResult.getErrors());
         }
 
-        storageVote.saveVote(infoFromUserDto);  //Моя новая хранилка под все
+        storageVote.saveVote(infoFromUserDto);
 
     }
 
