@@ -23,16 +23,17 @@ public class FormVoteValidate implements IValidate<InfoFromUserDTO> {
         ValidationResult validationResult = new ValidationResult();
 
         if(infoFromUserDTO.getSinger() == null) {
-            validationResult.addError(new Err("singer_incorrect","Singer is not chosen"));
+            validationResult.addError(new Err("singer_incorrect","Singer is not chosen", "Не выбран исполнитель"));
         }
 
         String[] janres = infoFromUserDTO.getJanres();
         if(janres == null || janres.length < MIN_COUNT_JANRES) {
-            validationResult.addError(new Err("janres_incorrect", "You need to choose " + MIN_COUNT_JANRES + " or more janres"));
+            validationResult.addError(new Err("janres_incorrect", "You need to choose " + MIN_COUNT_JANRES + " or more janres",
+                    "Необходимо выбрать " + MIN_COUNT_JANRES + " или более жанра"));
         }
 
         if(infoFromUserDTO.getInfo().isBlank()) {
-            validationResult.addError(new Err("info_incorrect", "Field with information is empty"));
+            validationResult.addError(new Err("info_incorrect", "Field with information is empty", "Поле с информацией не заполнено"));
         }
 
         return validationResult;
