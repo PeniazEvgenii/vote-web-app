@@ -5,6 +5,21 @@
 
 <head>
     <title>Результаты голосования</title>
+  <style>
+    tr:nth-child(even) {
+      background-color: #A9A9A9;
+    }
+
+    td {
+      text-align: left;
+      padding: 5px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 18%;
+    }
+
+    </style>
 </head>
 
 <body style="background-color: #D3D3D3">
@@ -14,7 +29,7 @@
 
     <h2><fmt:message key="page.resultvote.result"/></h2>
     <h4><fmt:message key="page.resulvote.ratingsinger"/>:</h4>
-    <table style="width:8%">
+    <table>
         <c:forEach var="singer" items="${requestScope.singersort}">
             <tr>
                 <td>${requestScope.test1[singer.key]} :</td>
@@ -26,7 +41,7 @@
     <br>
 
     <h4><fmt:message key="page.resultvote.ratingjenre"/>:</h4>
-    <table style="width:8%">
+    <table>
         <c:forEach var="janre" items="${requestScope.janresort}">
             <tr>
                 <td>${requestScope.test2[janre.key]} :</td>
