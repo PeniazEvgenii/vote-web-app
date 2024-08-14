@@ -1,10 +1,12 @@
 package by.it_academy.jd2.controller;
 
 import by.it_academy.jd2.dto.InfoFromUserDTO;
+import by.it_academy.jd2.service.ServiceJanre;
+import by.it_academy.jd2.service.ServiceSinger;
+import by.it_academy.jd2.service.api.IJanreService;
 import by.it_academy.jd2.service.api.IServiceVote;
-import by.it_academy.jd2.entity.EJanres;
-import by.it_academy.jd2.entity.ESingers;
 import by.it_academy.jd2.service.ServiceVote;
+import by.it_academy.jd2.service.api.ISingerService;
 import by.it_academy.jd2.util.JspUtil;
 import by.it_academy.jd2.validation.ValidFormException;
 import jakarta.servlet.ServletException;
@@ -14,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
@@ -31,13 +34,17 @@ public class FormForVoteServlet extends HttpServlet {
     public static final String JSP_PAGE_WITH_FORM = "vote";
 
     private final IServiceVote serviceVote = ServiceVote.getInstance();
+    private final ISingerService singerService = ServiceSinger.getInstance();
+    private final IJanreService janreService = ServiceJanre.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
 
-        req.setAttribute(ATTRIBUTE_REQUEST_JANRES, EJanres.values());
-        req.setAttribute(ATTRIBUTE_REQUEST_SINGERS, ESingers.values());
+        req.setAttribute(ATTRIBUTE_REQUEST_SINGERS, singerService.get());
+        req.setAttribute(ATTRIBUTE_REQUEST_JANRES, janreService.get());
+
         req.getRequestDispatcher(JspUtil.getPath(JSP_PAGE_WITH_FORM)).forward(req, resp);
     }
 
@@ -56,6 +63,10 @@ public class FormForVoteServlet extends HttpServlet {
         } catch (ValidFormException validationException) {
             req.setAttribute(ATTRIBUTE_REQUEST_VOTE_ERRORS, validationException.getErrors());
             doGet(req, resp);
+        } catch (IllegalArgumentException e) {
+            try (PrintWriter writer = resp.getWriter()) {
+                writer.write("<p>error: " + e.getMessage() + "</p>");
+            }
         }
 
     }

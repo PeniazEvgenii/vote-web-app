@@ -2,8 +2,6 @@ package by.it_academy.jd2.service;
 
 import by.it_academy.jd2.dto.SortedDateDTO;
 import by.it_academy.jd2.dto.TextTimeString;
-import by.it_academy.jd2.entity.EJanres;
-import by.it_academy.jd2.entity.ESingers;
 import by.it_academy.jd2.entity.TextAndTimeVote;
 import by.it_academy.jd2.service.api.IServiceGetData;
 import by.it_academy.jd2.storage.StorageVote;
@@ -29,12 +27,12 @@ public class ServiceGetData implements IServiceGetData {
      */
     @Override
     public SortedDateDTO getData() {
-        Map<ESingers, Integer> storageSingers = storageVote.getMapSingers();
-        Map<EJanres, Integer> storageJanres = storageVote.getMapJanres();
         List<TextAndTimeVote> listTextTime = storageVote.getListTextTime();
+        Map<Long, Long> mapSingers2 = storageVote.getMapSingers();
+        Map<Long, Long> mapJanres2 = storageVote.getMapJanres();
 
-        List<Map.Entry<ESingers, Integer>> sortSingers = SortUtil.sortSingers(storageSingers);
-        List<Map.Entry<EJanres, Integer>> sortJanres = SortUtil.sortJanres(storageJanres);
+        List<Map.Entry<Long, Long>> sortSingers = SortUtil.sort(mapSingers2);
+        List<Map.Entry<Long, Long>> sortJanres = SortUtil.sort(mapJanres2);
         List<TextAndTimeVote> textAndTimeVotes = SortUtil.sortListByTime(listTextTime);
 
         List<TextTimeString> textAndFormatTime = getListWithFormatTime(textAndTimeVotes);

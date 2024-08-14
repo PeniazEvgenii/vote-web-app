@@ -13,9 +13,15 @@ import java.util.stream.Collectors;
 public final class SortUtil {
     private SortUtil() {}
 
-    public static <T extends Comparable<T>>  List<Map.Entry<T, Integer>> sort(Map<T, Integer> map) {
+    public static  List<Map.Entry<Long, Long>> sort(Map<Long, Long> map) {
         return map.entrySet().stream()
-                .sorted(Map.Entry.<T, Integer>comparingByValue().reversed().thenComparing(Map.Entry.comparingByKey()))
+                .sorted(Map.Entry.<Long, Long>comparingByValue().reversed())
+                .collect(Collectors.toList());
+    }
+
+    public static List<TextAndTimeVote> sortListByTime(List<TextAndTimeVote> list) {
+        return list.stream()
+                .sorted(Comparator.comparing(TextAndTimeVote::getTime).reversed())
                 .collect(Collectors.toList());
     }
 
@@ -32,9 +38,5 @@ public final class SortUtil {
     }
 
 
-    public static List<TextAndTimeVote> sortListByTime(List<TextAndTimeVote> list) {
-        return list.stream()
-                .sorted(Comparator.comparing(TextAndTimeVote::getTime).reversed())
-                .collect(Collectors.toList());
-    }
+
 }

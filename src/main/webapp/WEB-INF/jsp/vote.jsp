@@ -16,15 +16,14 @@
         <h4 style=""><fmt:message key="page.vote.choose.singer"/></h4>
         <c:forEach var="singer" items="${requestScope.singers}">
             <label for="singerId">
-            <input type="radio" name="singer" value="${singer}" id="singerId">${singer}
+            <input type="radio" name="singer" value="${singer.key}" id="singerId">${singer.value}
             </label>
             <br>
         </c:forEach>
-
         <h4><fmt:message key="page.vote.choose.ganre"/></h4>
         <c:forEach var="janre" items="${requestScope.janres}">
             <label>
-            <input type="checkbox" name="janre" value="${janre}">${janre}
+            <input type="checkbox" name="janre" value="${janre.key}">${janre.value}
             </label>
             <br>
         </c:forEach>

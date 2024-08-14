@@ -1,9 +1,9 @@
 package by.it_academy.jd2.storage;
 
 import by.it_academy.jd2.dto.InfoFromUserDTO;
-import by.it_academy.jd2.entity.EJanres;
-import by.it_academy.jd2.entity.ESingers;
 import by.it_academy.jd2.entity.TextAndTimeVote;
+import by.it_academy.jd2.storage.api.IJanreStorage;
+import by.it_academy.jd2.storage.api.ISingerStorage;
 import by.it_academy.jd2.storage.api.IVoteStorage;
 
 import java.time.LocalDateTime;
@@ -15,9 +15,12 @@ import java.util.Map;
 public class StorageVote implements IVoteStorage {
     private static final StorageVote INSTANCE = new StorageVote();
 
-    private final Map<ESingers, Integer> mapSingers = new HashMap<>();
-    private final Map<EJanres, Integer> mapJanres = new HashMap<>();
     private final List<TextAndTimeVote> listTextTime = new ArrayList<>();
+    private final Map<Long, Long> mapSingers2 = new HashMap<>();
+    private final Map<Long, Long> mapJanres2 = new HashMap<>();
+
+    private final ISingerStorage singerStorage = SingerStorage.getInstance();
+    private final IJanreStorage janreStorage = JanreStorage.getInstance();
 
     {
         initSingers();      // чтобы в коллекции были все исполнители с ноль голосов
@@ -54,8 +57,8 @@ public class StorageVote implements IVoteStorage {
      * @param infoFromUserDto  объект дто с данными о голосовании
      */
     private void addElementSingers(InfoFromUserDTO infoFromUserDto) {
-        String singer = infoFromUserDto.getSinger();
-        ESingers.getSingers(singer).ifPresent(s -> mapSingers.merge(s, 1, Integer::sum));
+        Long idSinger = Long.valueOf(infoFromUserDto.getSinger());
+        mapSingers2.merge(idSinger, 1L, Long::sum);
     }
 
     /**
@@ -63,10 +66,27 @@ public class StorageVote implements IVoteStorage {
      * @param infoFromUserDto  объект дто с данными о голосовании
      */
     private void addElementJanres(InfoFromUserDTO infoFromUserDto) {
-        String[] janres = infoFromUserDto.getJanres();
-        for (String janre : janres) {
-            EJanres.getJanre(janre).ifPresent(j -> mapJanres.merge(j, 1, Integer::sum));
+        String[] janresId = infoFromUserDto.getJanres();
+        for (String jId : janresId) {
+            Long id = Long.valueOf(jId);
+            mapJanres2.merge(id, 1L, Long::sum);
         }
+    }
+
+    /**
+     * Метод получения данных с исполнителями
+     * @return Map<Long, Long> с исполнителем и количеством голосов
+     */
+    public Map<Long, Long> getMapSingers() {
+        return mapSingers2;
+    }
+
+    /**
+     * Метод получения данных с жанрами
+     * @return Map<Long, Long> с id жанра и количеством голосов
+     */
+    public Map<Long, Long> getMapJanres() {
+        return mapJanres2;
     }
 
     /**
@@ -77,21 +97,6 @@ public class StorageVote implements IVoteStorage {
         return listTextTime;
     }
 
-    /**
-     * Метод получения данных с исполнителями
-     * @return Map<ESingers, Integer> с исполнителем и количеством голосов
-     */
-    public Map<ESingers, Integer> getMapSingers() {
-        return mapSingers;
-    }
-
-    /**
-     * Метод получения данных с жанрами
-     * @return Map<EJanres, Integer> с исполнителем и количеством голосов
-     */
-    public Map<EJanres, Integer> getMapJanres() {
-        return mapJanres;
-    }
 
     /**
      * Метод получения экземпляра класса StorageVote
@@ -105,8 +110,9 @@ public class StorageVote implements IVoteStorage {
      * Метод для заполнения количества голосов по жанрам нулями
      */
     private void initJanres() {
-        for (EJanres j : EJanres.values()) {
-            mapJanres.put(j,0);
+        Map<Long, String> janreMap = janreStorage.get();
+        for (Long l : janreMap.keySet()) {
+            mapJanres2.put(l, 0L);
         }
     }
 
@@ -114,8 +120,10 @@ public class StorageVote implements IVoteStorage {
      * Метод для заполнения количества голосов по исполнителям нулями
      */
     private void initSingers() {
-        for (ESingers s : ESingers.values()) {
-            mapSingers.put(s, 0);
+        Map<Long, String> singerMap = singerStorage.get();
+        for (Long l : singerMap.keySet()) {
+            mapSingers2.put(l, 0L);
         }
+
     }
 }

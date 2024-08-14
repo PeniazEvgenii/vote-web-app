@@ -17,7 +17,7 @@
     <table style="width:8%">
         <c:forEach var="singer" items="${requestScope.singersort}">
             <tr>
-                <td>${singer.key} :</td>
+                <td>${requestScope.test1[singer.key]} :</td>
                 <td>${singer.value}</td>
             </tr>
         </c:forEach>
@@ -29,7 +29,7 @@
     <table style="width:8%">
         <c:forEach var="janre" items="${requestScope.janresort}">
             <tr>
-                <td>${janre.key} :</td>
+                <td>${requestScope.test2[janre.key]} :</td>
                 <td>${janre.value}</td>
             </tr>
         </c:forEach>

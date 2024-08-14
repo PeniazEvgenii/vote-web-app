@@ -1,31 +1,29 @@
 package by.it_academy.jd2.dto;
 
-import by.it_academy.jd2.entity.EJanres;
-import by.it_academy.jd2.entity.ESingers;
-
 import java.util.List;
 import java.util.Map;
 
 public class SortedDateDTO {
-    private final List<Map.Entry<ESingers, Integer>> sortSingers;
-    private final List<Map.Entry<EJanres, Integer>> sortJanres;
     private final List<TextTimeString> textTimeString;
+    private final List<Map.Entry<Long, Long>> sortSing;
+    private final List<Map.Entry<Long, Long>> sortJanr;
 
-    public SortedDateDTO(List<Map.Entry<ESingers, Integer>> sortSingers, List<Map.Entry<EJanres, Integer>> sortJanres, List<TextTimeString> textTimeString) {
-        this.sortSingers = sortSingers;
-        this.sortJanres = sortJanres;
+
+    public SortedDateDTO(List<Map.Entry<Long, Long>> sortSing, List<Map.Entry<Long, Long>> sortJanr, List<TextTimeString> textTimeString) {
         this.textTimeString = textTimeString;
-    }
-
-    public List<Map.Entry<ESingers, Integer>> getSortSingers() {
-        return sortSingers;
-    }
-
-    public List<Map.Entry<EJanres, Integer>> getSortJanres() {
-        return sortJanres;
+        this.sortSing = sortSing;
+        this.sortJanr = sortJanr;
     }
 
     public List<TextTimeString> getTextAndTimeVotes() {
         return textTimeString;
+    }
+
+    public List<Map.Entry<Long, Long>> getSortSing() {
+        return sortSing;
+    }
+
+    public List<Map.Entry<Long, Long>> getSortJanr() {
+        return sortJanr;
     }
 }

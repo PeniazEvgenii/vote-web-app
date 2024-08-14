@@ -14,8 +14,8 @@ public interface IVoteStorage {
 
     List<TextAndTimeVote> getListTextTime();
 
-    Map<ESingers, Integer> getMapSingers();
+    Map<Long, Long> getMapSingers();
 
-    Map<EJanres, Integer> getMapJanres();
+    Map<Long, Long> getMapJanres();
 }
 

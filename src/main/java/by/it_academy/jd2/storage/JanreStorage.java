@@ -1,5 +1,6 @@
 package by.it_academy.jd2.storage;
 
+import by.it_academy.jd2.entity.EJanres;
 import by.it_academy.jd2.storage.api.IJanreStorage;
 
 import java.util.HashMap;
@@ -9,15 +10,23 @@ public class JanreStorage implements IJanreStorage {
     private static final JanreStorage INSTANCE = new JanreStorage();
     private Map<Long, String> data = new HashMap<>();
 
-    private JanreStorage() {}
-
+    private JanreStorage() {
+        for (EJanres value : EJanres.values()) {
+            long id = getNextIdFromMap();
+            data.put(id, value.name());
+        }
+    }
 
 
     @Override
     public Long create(String name) {
-        long id = data.size() + 1;
+        long id = getNextIdFromMap();
         data.put(id, name);
         return id;
+    }
+
+    private long getNextIdFromMap() {
+        return data.size() + 1;
     }
 
     @Override
@@ -34,4 +43,6 @@ public class JanreStorage implements IJanreStorage {
     public static JanreStorage getInstance() {
         return INSTANCE;
     }
+
+
 }
