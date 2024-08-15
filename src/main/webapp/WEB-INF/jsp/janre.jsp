@@ -27,12 +27,17 @@
         <br>
         <br>
         <button type="submit"><fmt:message key="button.send" /></button>
-        <br>
+        <br><br>
 
         <c:if test="${not empty requestScope.janreErr}">
             <div style="color: #FF0000">
             <span>${requestScope.janreErr}</span>
             </div>
+        </c:if>
+        <c:if test="${not empty requestScope.janreAdd}">
+             <div style="color: #228B22">
+             <span>${requestScope.janreAdd}</span>
+             </div>
         </c:if>
     </form>
 

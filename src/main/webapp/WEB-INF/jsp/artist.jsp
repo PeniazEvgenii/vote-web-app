@@ -27,11 +27,16 @@
         <br>
         <br>
         <button type="submit"><fmt:message key="button.send" /></button>
-        <br>
+        <br><br>
 
         <c:if test="${not empty requestScope.artistErr}">
             <div style="color: #FF0000">
             <span>${requestScope.artistErr}</span>
+            </div>
+        </c:if>
+        <c:if test="${not empty requestScope.artistAdd}">
+            <div style="color: #228B22">
+            <span>${requestScope.artistAdd}</span>
             </div>
         </c:if>
     </form>

@@ -14,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 @WebServlet(urlPatterns = "/service/artist")
 public class ArtistServlet extends HttpServlet {
     public static final String ATTRIBUTE_ERROR_ARTIST = "artistErr";
+    public static final String ATTRIBUTE_ADD_ARTIST = "artistAdd";
     public static final String ATTRIBUTE_LIST_ARTIST = "artist";
     public static final String PARAMETER_ARTIST = "artist";
 
@@ -33,7 +34,8 @@ public class ArtistServlet extends HttpServlet {
         String artist = req.getParameter(PARAMETER_ARTIST);
 
         try {
-            singerService.create(artist);
+            Long id = singerService.create(artist);
+            req.setAttribute(ATTRIBUTE_ADD_ARTIST, "Исполнитель добавлен в систему под id = " + id);
             doGet(req, resp);
         } catch (IllegalArgumentException e) {
             req.setAttribute(ATTRIBUTE_ERROR_ARTIST, "Исполнитель не добавлен");

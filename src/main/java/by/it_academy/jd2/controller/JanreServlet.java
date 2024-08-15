@@ -18,6 +18,7 @@ import static by.it_academy.jd2.controller.FormForVoteServlet.PARAMETR_JANRE;
 public class JanreServlet extends HttpServlet {
 
     public static final String ATTRIBUTE_ERROR_JANRE = "janreErr";
+    public static final String ATTRIBUTE_ADD_JANRE = "janreAdd";
 
     IJanreService janreService = ServiceJanre.getInstance();
 
@@ -36,6 +37,7 @@ public class JanreServlet extends HttpServlet {
 
         try {
             janreService.create(janre);
+            req.setAttribute(ATTRIBUTE_ADD_JANRE, "Жанр добавлен в систему");
             doGet(req, resp);
         } catch (IllegalArgumentException e) {
             req.setAttribute(ATTRIBUTE_ERROR_JANRE, "Жанр не добавлен");
