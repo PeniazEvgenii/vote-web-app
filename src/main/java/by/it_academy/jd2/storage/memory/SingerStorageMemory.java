@@ -6,12 +6,12 @@ import by.it_academy.jd2.storage.api.ISingerStorage;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SingerStorage implements ISingerStorage {
-    private static SingerStorage INSTANCE = new SingerStorage();
+public class SingerStorageMemory implements ISingerStorage {
+    private static SingerStorageMemory INSTANCE = new SingerStorageMemory();
     private Map<Long, String> data = new HashMap<>();
 
 
-    private SingerStorage() {
+    private SingerStorageMemory() {
         for (ESingers value : ESingers.values()) {
             long id = getNextIdFromMap();
             data.put(id, value.name());
@@ -35,7 +35,7 @@ public class SingerStorage implements ISingerStorage {
         return this.data;
     }
 
-    public static SingerStorage getInstance() {
+    public static SingerStorageMemory getInstance() {
         return INSTANCE;
     }
 
