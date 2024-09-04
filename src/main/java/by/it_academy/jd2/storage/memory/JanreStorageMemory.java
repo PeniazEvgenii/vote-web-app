@@ -1,6 +1,6 @@
-package by.it_academy.jd2.storage;
+package by.it_academy.jd2.storage.memory;
 
-import by.it_academy.jd2.entity.EJanres;
+import by.it_academy.jd2.entity.econst.EJanres;
 import by.it_academy.jd2.storage.api.IJanreStorage;
 
 import java.util.HashMap;

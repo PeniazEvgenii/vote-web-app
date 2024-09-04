@@ -1,7 +1,7 @@
 package by.it_academy.jd2.storage.old;
 
 import by.it_academy.jd2.storage.api.IStorageCount;
-import by.it_academy.jd2.entity.EJanres;
+import by.it_academy.jd2.entity.econst.EJanres;
 
 import java.util.HashMap;
 import java.util.Map;

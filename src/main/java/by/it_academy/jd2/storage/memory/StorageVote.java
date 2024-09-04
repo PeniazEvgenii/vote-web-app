@@ -1,12 +1,10 @@
-package by.it_academy.jd2.storage;
+package by.it_academy.jd2.storage.memory;
 
 import by.it_academy.jd2.dto.InfoFromUserDTO;
 import by.it_academy.jd2.entity.TextAndTimeVote;
 import by.it_academy.jd2.storage.api.IJanreStorage;
 import by.it_academy.jd2.storage.api.ISingerStorage;
 import by.it_academy.jd2.storage.api.IVoteStorage;
-import by.it_academy.jd2.storage.memory.JanreStorageMemory;
-import by.it_academy.jd2.storage.memory.SingerStorageMemory;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

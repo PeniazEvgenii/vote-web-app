@@ -1,6 +1,6 @@
-package by.it_academy.jd2.storage;
+package by.it_academy.jd2.storage.memory;
 
-import by.it_academy.jd2.entity.ESingers;
+import by.it_academy.jd2.entity.econst.ESingers;
 import by.it_academy.jd2.storage.api.ISingerStorage;
 
 import java.util.HashMap;
