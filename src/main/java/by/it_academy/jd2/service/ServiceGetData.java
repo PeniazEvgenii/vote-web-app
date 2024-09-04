@@ -3,21 +3,28 @@ package by.it_academy.jd2.service;
 import by.it_academy.jd2.dto.SortedDateDTO;
 import by.it_academy.jd2.dto.TextTimeString;
 import by.it_academy.jd2.entity.TextAndTimeVote;
+import by.it_academy.jd2.entity.VoteEntity;
 import by.it_academy.jd2.service.api.IServiceGetData;
-import by.it_academy.jd2.storage.StorageVote;
+import by.it_academy.jd2.storage.memory.StorageVote;
+import by.it_academy.jd2.storage.api.IStorageDB;
 import by.it_academy.jd2.storage.api.IVoteStorage;
+import by.it_academy.jd2.storage.db.VoteStorageDB;
 import by.it_academy.jd2.util.SortUtil;
+import by.it_academy.jd2.util.TimeUtil;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ServiceGetData implements IServiceGetData {
     private static final IServiceGetData INSTANCE = new ServiceGetData();
-    private static final String FORMAT_DATE = "HH:mm:ss dd.MM.yyyy";
     private final IVoteStorage storageVote = StorageVote.getInstance();
+    private final IStorageDB<VoteEntity> voteStorageDB = VoteStorageDB.getInstance();
+
+    private static final String FORMAT_DATE = "HH:mm:ss _ dd.MM.yyyy";
 
     private ServiceGetData(){}
 
@@ -27,17 +34,20 @@ public class ServiceGetData implements IServiceGetData {
      */
     @Override
     public SortedDateDTO getData() {
-        List<TextAndTimeVote> listTextTime = storageVote.getListTextTime();
-        Map<Long, Long> mapSingers2 = storageVote.getMapSingers();
-        Map<Long, Long> mapJanres2 = storageVote.getMapJanres();
+    //    List<TextAndTimeVote> listTextTime = storageVote.getListTextTime();                 // in-memory
+    //    Map<Long, Long> mapSingers2 = storageVote.getMapSingers();                          // in-memory
+    //    Map<Long, Long> mapJanres2 = storageVote.getMapJanres();                            // in-memory
 
-        List<Map.Entry<Long, Long>> sortSingers = SortUtil.sort(mapSingers2);
-        List<Map.Entry<Long, Long>> sortJanres = SortUtil.sort(mapJanres2);
-        List<TextAndTimeVote> textAndTimeVotes = SortUtil.sortListByTime(listTextTime);
+    //    List<Map.Entry<Long, Long>> sortSingers = SortUtil.sort(mapSingers2);                // in-memory
+    //    List<Map.Entry<Long, Long>> sortJanres = SortUtil.sort(mapJanres2);                  // in-memory
+    //    List<TextAndTimeVote> textAndTimeVotes = SortUtil.sortListByTime(listTextTime);      // in-memory
+    //    List<TextTimeString> textAndFormatTime = getListWithFormatTime(textAndTimeVotes);     // in-memory
 
-        List<TextTimeString> textAndFormatTime = getListWithFormatTime(textAndTimeVotes);
+        Map<Long, VoteEntity> votes = voteStorageDB.get();
+        
+        return countAndSortVote(votes);
 
-        return new SortedDateDTO(sortSingers, sortJanres, textAndFormatTime);
+        // return new SortedDateDTO(sortSingers, sortJanres, textAndFormatTime);              // in-memory
     }
 
     /**
@@ -56,6 +66,31 @@ public class ServiceGetData implements IServiceGetData {
         }
         return newList;
     }
+
+    private SortedDateDTO countAndSortVote(Map<Long, VoteEntity> votes) {
+        List<VoteEntity> listVote = new ArrayList<>(votes.values());
+
+        Map<Long, Long> artistCount = new HashMap<>();
+        Map<Long, Long> genresCount = new HashMap<>();
+        List<TextAndTimeVote> listTextTime = new ArrayList<>();
+
+        for (VoteEntity vote : listVote) {
+            artistCount.merge(vote.getArtistId(), 1L, Long::sum);
+            for (Long genre : vote.getGenresId()) {
+                genresCount.merge(genre, 1L, Long::sum);
+            }
+            String info = vote.getInfo();
+            LocalDateTime localDateTime = TimeUtil.convertOffsetToLocalDateTime(vote.getCreate_at(), "Europe/Minsk");
+            listTextTime.add(new TextAndTimeVote(info, localDateTime));
+        }
+
+        List<TextAndTimeVote> textAndTimeVotes = SortUtil.sortListByTime(listTextTime);
+
+        return new SortedDateDTO(SortUtil.sort(artistCount),
+                SortUtil.sort(genresCount),
+                getListWithFormatTime(textAndTimeVotes));
+    }
+
 
     /**
      * Метод получения экземпляра синглтон класса ServiceGetData

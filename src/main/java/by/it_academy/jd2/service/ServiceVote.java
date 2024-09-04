@@ -1,9 +1,13 @@
 package by.it_academy.jd2.service;
 
 import by.it_academy.jd2.dto.InfoFromUserDTO;
+import by.it_academy.jd2.entity.VoteEntity;
+import by.it_academy.jd2.mapper.MapperVoteEntity;
 import by.it_academy.jd2.service.api.IServiceVote;
-import by.it_academy.jd2.storage.StorageVote;
+import by.it_academy.jd2.storage.memory.StorageVote;
+import by.it_academy.jd2.storage.api.IStorageDB;
 import by.it_academy.jd2.storage.api.IVoteStorage;
+import by.it_academy.jd2.storage.db.VoteStorageDB;
 import by.it_academy.jd2.validation.FormVoteValidate;
 import by.it_academy.jd2.validation.ValidFormException;
 import by.it_academy.jd2.validation.ValidationResult;
@@ -13,6 +17,8 @@ public class ServiceVote implements IServiceVote {
 
     private final FormVoteValidate formVoteValidate = FormVoteValidate.getInstance();
     private final IVoteStorage storageVote = StorageVote.getInstance();
+    private final MapperVoteEntity mapperVoteEntity = MapperVoteEntity.getInstance();
+    private final IStorageDB<VoteEntity> voteStorageDB = VoteStorageDB.getInstance();
 
     private ServiceVote(){}
 
@@ -29,7 +35,12 @@ public class ServiceVote implements IServiceVote {
             throw new ValidFormException(validationResult.getErrors());
         }
 
-        storageVote.saveVote(infoFromUserDto);
+        VoteEntity voteEntity = mapperVoteEntity.mapFrom(infoFromUserDto);
+
+        voteStorageDB.create(voteEntity);
+
+
+      //  storageVote.saveVote(infoFromUserDto);         // в InMemory на удален
 
     }
 

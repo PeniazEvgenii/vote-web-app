@@ -1,5 +1,6 @@
 package by.it_academy.jd2.controller;
 
+import by.it_academy.jd2.dto.SortedDateDTO;
 import by.it_academy.jd2.dto.TextTimeString;
 import by.it_academy.jd2.service.ServiceGetData;
 import by.it_academy.jd2.service.ServiceJanre;
@@ -35,10 +36,10 @@ public class ResultVoteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        List<TextTimeString> textAndTimeVotes = serviceGetData.getData().getTextAndTimeVotes();
-        List<Map.Entry<Long, Long>> sortSing = serviceGetData.getData().getSortSing();
-        List<Map.Entry<Long, Long>> sortJanr = serviceGetData.getData().getSortJanr();
+        SortedDateDTO sortedDateDTO = serviceGetData.getData();
+        List<TextTimeString> textAndTimeVotes = sortedDateDTO.getTextAndTimeVotes();
+        List<Map.Entry<Long, Long>> sortSing = sortedDateDTO.getSortSing();
+        List<Map.Entry<Long, Long>> sortJanr = sortedDateDTO.getSortJanr();
 
         req.setAttribute(ATTRIBUTE_MAP_SINGERS, singerService.get());
         req.setAttribute(ATTRIBUTE_MAP_JANRES, janreService.get());
