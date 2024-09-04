@@ -5,6 +5,8 @@ import by.it_academy.jd2.entity.TextAndTimeVote;
 import by.it_academy.jd2.storage.api.IJanreStorage;
 import by.it_academy.jd2.storage.api.ISingerStorage;
 import by.it_academy.jd2.storage.api.IVoteStorage;
+import by.it_academy.jd2.storage.memory.JanreStorageMemory;
+import by.it_academy.jd2.storage.memory.SingerStorageMemory;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,8 +21,8 @@ public class StorageVote implements IVoteStorage {
     private final Map<Long, Long> mapSingers2 = new HashMap<>();
     private final Map<Long, Long> mapJanres2 = new HashMap<>();
 
-    private final ISingerStorage singerStorage = SingerStorage.getInstance();
-    private final IJanreStorage janreStorage = JanreStorage.getInstance();
+    private final ISingerStorage singerStorage = SingerStorageMemory.getInstance();
+    private final IJanreStorage janreStorage = JanreStorageMemory.getInstance();
 
     {
         initSingers();      // чтобы в коллекции были все исполнители с ноль голосов
