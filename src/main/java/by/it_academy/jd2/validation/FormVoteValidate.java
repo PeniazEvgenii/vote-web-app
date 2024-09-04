@@ -5,8 +5,6 @@ import by.it_academy.jd2.service.ServiceJanre;
 import by.it_academy.jd2.service.ServiceSinger;
 import by.it_academy.jd2.service.api.IJanreService;
 import by.it_academy.jd2.service.api.ISingerService;
-import by.it_academy.jd2.storage.StorageVote;
-import by.it_academy.jd2.storage.api.IVoteStorage;
 import by.it_academy.jd2.validation.api.IValidate;
 
 public class FormVoteValidate implements IValidate<InfoFromUserDTO> {

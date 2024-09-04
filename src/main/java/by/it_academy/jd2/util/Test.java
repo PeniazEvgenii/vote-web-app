@@ -59,7 +59,20 @@ class TestTime2 {
         ZonedDateTime zonedDateTime1 = zonedDateTime.withZoneSameInstant(ZoneId.of("Europe/Paris"));
         System.out.println(zonedDateTime1);
 
+        ZonedDateTime zonedDateTime3 = zonedDateTime.withZoneSameLocal(ZoneId.of("Europe/Paris"));
+        System.out.println(zonedDateTime1);
+
         ZonedDateTime zonedDateTime2 = zonedDateTime.withZoneSameInstant(ZoneId.of("-11:00"));
         System.out.println(zonedDateTime2);
+    }
+}
+
+class TestTime3 {
+    public static void main(String[] args) {
+        LocalDateTime now = LocalDateTime.now();
+
+        System.out.println(now);
+        OffsetDateTime offsetDateTime = OffsetDateTime.of(now, ZoneOffset.of("+03:00"));
+        System.out.println(offsetDateTime);
     }
 }

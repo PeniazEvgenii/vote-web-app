@@ -11,12 +11,14 @@
     }
 
     td {
+      font-size: 16px;
       text-align: left;
       padding: 5px;
     }
+
     table {
       border-collapse: collapse;
-      width: 18%;
+      width: 25%;
     }
 
     </style>

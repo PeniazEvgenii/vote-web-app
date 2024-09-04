@@ -1,7 +1,7 @@
 package by.it_academy.jd2.util;
 
-import by.it_academy.jd2.entity.EJanres;
-import by.it_academy.jd2.entity.ESingers;
+import by.it_academy.jd2.entity.econst.EJanres;
+import by.it_academy.jd2.entity.econst.ESingers;
 import by.it_academy.jd2.entity.TextAndTimeVote;
 
 import java.util.Comparator;
